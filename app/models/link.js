@@ -10,7 +10,6 @@ var linkSchema = new Schema({
   visits: Number,
   baseUrl: String
 });
-console.log('I should only be run once!');
 
 var Link = mongoose.model('Link', linkSchema);
 
@@ -23,6 +22,8 @@ var createShortUrl = function(url) {
 linkSchema.pre('save', function(next) {
   var code = createShortUrl(this.url);
   this.code = code; // => save the code
+  // console.log('\n\n\n\n\n\n\n\nthis.code: ', this.code);
+  // next(this.code);
   next();
 });
 
