@@ -14,6 +14,8 @@ var Link = require('../app/models/link');
 
 
 describe('', function() {
+  //Increases the time that the tests will run before timing out
+  this.timeout(15000);
 
   beforeEach(function(done) {
     // Log out currently signed in user
