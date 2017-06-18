@@ -25,7 +25,11 @@ module.exports = function(grunt) {
 
     eslint: {
       target: [
-        // Add list of files to lint here
+        'app/**/*.js',
+        'lib/**/*.js',
+        'public/client/**/*.js',
+        'views/**/*.ejs',
+        'views/**/*.js'
       ]
     },
 
@@ -76,12 +80,16 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
+  grunt.registerTask('server-prod', [
+    'eslint', 'nodemon'
+  ]);
+
   grunt.registerTask('build', [
   ]);
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
-      // add your production server task here
+      grunt.task.run([ 'server-prod' ]);
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
