@@ -90,27 +90,27 @@ module.exports = function(grunt) {
   ////////////////////////////////////////////////////
 
   grunt.registerTask('test', [
+    'eslint'
     'mochaTest'
   ]);
 
-  grunt.registerTask('server-prod', [
-    'eslint', 'nodemon'
+  grunt.registerTask('server-deploy', [
+    'nodemon'
   ]);
 
   grunt.registerTask('build', [
-    'eslint', 'concat', 'uglify', 'shell'
+    'concat', 'uglify', 'cssmin'
   ]);
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
-      grunt.task.run([ 'server-prod' ]);
+      grunt.task.run([ 'shell:prodServer' ]);
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
   });
 
   grunt.registerTask('deploy', [
-    grunt.task.run([ 'build' ])
+    grunt.task.run([ 'test', 'build', 'upload' ]);
   ]);
-
 };
