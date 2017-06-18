@@ -9,7 +9,7 @@ module.exports = function(grunt) {
       dist: {
         src: ['public/client/**/*.js',
           'public/lib/**/*.js',
-         ],
+        ],
         dest: 'public/dist/concat.js',
       },
     },
@@ -30,13 +30,14 @@ module.exports = function(grunt) {
     },
 
     uglify: {
-      my_target: {
+      myTarget: {
         files: {'public/dist/built.js': 'public/dist/concat.js'}
       }
     },
 
     eslint: {
       target: [
+        'Gruntfile.js',
         'app/**/*.js',
         'lib/**/*.js',
         'public/client/**/*.js',
@@ -90,7 +91,7 @@ module.exports = function(grunt) {
   ////////////////////////////////////////////////////
 
   grunt.registerTask('test', [
-    'eslint'
+    'eslint',
     'mochaTest'
   ]);
 
@@ -102,15 +103,16 @@ module.exports = function(grunt) {
     'concat', 'uglify', 'cssmin'
   ]);
 
-  grunt.registerTask('upload', function(n) {
-    if (grunt.option('prod')) {
-      grunt.task.run([ 'shell:prodServer' ]);
-    } else {
-      grunt.task.run([ 'server-dev' ]);
-    }
+  grunt.registerTask('prodUpload', function() {
+    grunt.task.run([ 'shell:prodServer' ]);
   });
 
-  grunt.registerTask('deploy', [
-    grunt.task.run([ 'test', 'build', 'upload' ]);
-  ]);
+  grunt.registerTask('devUpload', function() {
+    grunt.task.run([ 'server-dev' ]);
+  });
+
+  grunt.registerTask('deploy', function() {
+    grunt.task.run(['test', 'build', 'prodUpload' ]);
+  });
+
 };
