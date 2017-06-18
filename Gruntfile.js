@@ -9,9 +9,6 @@ module.exports = function(grunt) {
       dist: {
         src: ['public/client/**/*.js',
           'public/lib/**/*.js',
-          'public/**/*.css',
-          'views/**/*.ejs',
-          'view/partials/**/*.ejs'
          ],
         dest: 'public/dist/concat.js',
       },
@@ -43,7 +40,6 @@ module.exports = function(grunt) {
         'app/**/*.js',
         'lib/**/*.js',
         'public/client/**/*.js',
-        'views/**/*.ejs',
         'views/**/*.js'
       ]
     },
@@ -102,7 +98,7 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build', [
-    'eslint', 'concat', 'uglify', 'shell:prodServer:command'
+    'eslint', 'concat', 'uglify', 'shell'
   ]);
 
   grunt.registerTask('upload', function(n) {
@@ -116,6 +112,5 @@ module.exports = function(grunt) {
   grunt.registerTask('deploy', [
     grunt.task.run([ 'build' ])
   ]);
-
 
 };
