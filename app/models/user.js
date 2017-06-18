@@ -24,7 +24,7 @@ User.comparePassword = function(possibleMatch, savedPassword, callback) {
 userSchema.pre('save', function(next) {
   // here is where the promises come out
   var cipher = Promise.promisify(bcrypt.hash);
-  return cipher(this.get('password'), null, null).bind(this)
+  return cipher(this.password, null, null).bind(this)
     .then(function(hash) {
       this.password = hash;
       next();

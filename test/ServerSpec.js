@@ -18,8 +18,6 @@ describe('', function() {
     request(app)
       .get('/logout')
       .end(function(err, res) {
-        console.log('Link:', Link);
-        console.log('Link.remove:', Link);
         // Delete objects from db so they can be created later for the test
         Link.remove({url: 'http://www.roflzoo.com/'}).exec();
         User.remove({username: 'Savannah'}).exec();
